@@ -8,10 +8,10 @@ int main() {
     }
 
     if (N <= 0) {
-        printf("Error\n");
+        printf("Error");
         return 0;
     }
-ั้ง
+
     for (i = 0; i < N; i++) {
         printf("Hello Loop!\n");
     }
