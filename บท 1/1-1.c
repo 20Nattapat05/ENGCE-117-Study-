@@ -1,17 +1,18 @@
 #include <stdio.h>
 
 int main() {
-    int N;
-
-    printf("Enter a number: ");
-    scanf("%d", &N);
-
-    if (N <= 0) {
-        printf("Error: Please enter a positive integer greater than 0.\n");
+    int N, i;
+    
+    if (scanf("%d", &N) != 1) {
         return 1;
     }
 
-    for (int i = 0; i < N; i++) {
+    if (N <= 0) {
+        printf("Error\n");
+        return 0;
+    }
+ั้ง
+    for (i = 0; i < N; i++) {
         printf("Hello Loop!\n");
     }
 
