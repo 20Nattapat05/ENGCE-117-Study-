@@ -10,7 +10,6 @@ int main()
         if (scanf("%d", &number) != 1)
         {
             printf("Error: Value must be 1-10.\n");
-            // Clear input buffer for non-integer input
             while (getchar() != '\n')
                 ;
         }
