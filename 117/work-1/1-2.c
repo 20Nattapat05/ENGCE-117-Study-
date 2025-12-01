@@ -4,29 +4,28 @@
 void GetSet(int **data, int *num);
 
 int main() {
-    int *data;
-    int num;
+    int *data, num;
 
-    GetSet(&data, &num);
+    GetSet(&data, &num); // Get data and print members
 
-    printf("\nสมาชิกในเซตที่รับมา:\n");
-    for(int i = 0; i < num; i++){
-        printf("%d ", data[i]);
-    }
-
-    free(data);
     return 0;
 }
 
 void GetSet(int **data, int *num) {
-    printf("จำนวนสมาชิก: ");
-    scanf("%d", num);
+    printf("Number of members: ");
+    scanf("%d", num);  // Must be fixed to &(*num)
 
-    *data = malloc(*num * sizeof(int));
+    *data = malloc(*num * sizeof(int)); // Allocate memory for the array
 
-    printf("ป้อนค่าทีละสมาชิก:\n");
+    printf("Enter values one by one:\n");
     for(int i = 0; i < *num; i++){
-        printf("สมาชิก %d: ", i+1);
-        scanf("%d", &(*data)[i]);
+        printf("Member %d: ", i+1);
+        scanf("%d", &(*data)[i]); // Get value of each member
     }
+
+    printf("\nMembers in the set received:\n");
+    for(int i = 0; i < *num; i++){
+        printf("%d ", (*data)[i]); // Print all members
+    }
+    printf("\n");
 }
