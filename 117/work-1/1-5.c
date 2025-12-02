@@ -1,48 +1,36 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-// ประกาศฟังก์ชัน GetMatrix ก่อน
-void GetMatrix(int **value, int *row, int *col);
+// Function to get matrix values and display it
+void GetMatrix(int value[], int *row, int *col);
 
-int main()
-{
-    int *data, m, n;
-
-    // เรียกใช้ฟังก์ชัน GetMatrix
-    GetMatrix(&data, &m, &n);
+int main() {
+    int m, n;               // Number of rows and columns
+    int data[100];          // Matrix data
+    GetMatrix(data, &m, &n); // Call function to get and display matrix
 
     return 0;
 }
 
-void GetMatrix(int **value, int *row, int *col)
-{
-    // รับจำนวนแถวและคอลัมน์จากผู้ใช้
+// Function to input matrix values and display the matrix
+void GetMatrix(int value[], int *row, int *col) {
+    // Get number of rows and columns
     printf("Enter the number of rows: ");
     scanf("%d", row);
     printf("Enter the number of columns: ");
     scanf("%d", col);
 
-    // จองพื้นที่ให้กับเมทริกซ์
-    *value = (int *)malloc((*row) * (*col) * sizeof(int));
-
-    // รับค่าเมทริกซ์จากผู้ใช้
-    printf("Enter the elements of the matrix:\n");
-    for (int i = 0; i < *row; i++)
-    {
-        for (int j = 0; j < *col; j++)
-        {
-            printf("Element at [%d][%d]: ", i, j);
-            scanf("%d", &(*value)[i * (*col) + j]); // เก็บค่าในเมทริกซ์แบบ 1D
-        }
+    // Get matrix values from user
+    int total_elements = (*row) * (*col);
+    for (int i = 0; i < total_elements; i++) {
+        printf("Enter value for element %d: ", i + 1);
+        scanf("%d", &value[i]);
     }
 
-    // การแสดงผลเมทริกซ์
-    printf("The entered matrix is:\n");
-    for (int i = 0; i < *row; i++)
-    {
-        for (int j = 0; j < *col; j++)
-        {
-            printf("%d ", (*value)[i * (*col) + j]);
+    // Display the matrix
+    printf("The matrix is:\n");
+    for (int i = 0; i < *row; i++) {
+        for (int j = 0; j < *col; j++) {
+            printf("%d ", value[i * (*col) + j]);
         }
         printf("\n");
     }
