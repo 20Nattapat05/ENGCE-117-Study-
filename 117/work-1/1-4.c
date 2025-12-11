@@ -1,30 +1,48 @@
 #include <stdio.h>
+#include <stdlib.h>  // For malloc
 
-// Function to get and set array elements
-int GetSet( int Array[] ) ;
+// Declare GetSet function
+int GetSet(int **data);
 
 int main() {
-    int data[777], num = 0 ;
-    num = GetSet( data ) ;
-    return 0 ;
+    int *data, num;
+    
+    // Call GetSet function
+    num = GetSet(&data);
+    
+    return 0;
 }
 
-// Get and set function definition
-int GetSet( int Array[] ) {
-    int num = 0 ;
-
-    printf( "Enter the number of Elements: " ) ;
-    scanf( "%d", &num ) ;
-
-    printf( "Enter the Elements: " ) ;
-    for ( int i = 0 ; i < num ; i++ ) {
-        scanf( "%d", &Array[i] ) ;  // Store input directly into the array
+// GetSet function to get user input
+int GetSet(int **data) {
+    int num;
+    
+    // Allocate memory for 100 integers
+    *data = (int *)malloc(sizeof(int) * 100);  // Allocate memory for 100 integers
+    
+    // Check if memory allocation is successful
+    if (*data == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;  // Exit if memory allocation fails
+    }
+    
+    // Get the number of elements
+    printf("Enter number of elements: ");
+    scanf("%d", &num);
+    
+    // Get the values of each element
+    printf("Enter the elements:\n");
+    for (int i = 0; i < num; i++) {
+        scanf("%d", &(*data)[i]);
     }
 
-    printf( "Number of Elements: %d\n", num ) ;
-    for ( int i = 0 ; i < num ; i++ ) {
-        printf( "%d ", Array[i] ) ;  // Print the array elements
+    // Print number and values of elements
+    printf("Number of elements: %d\n", num);
+    printf("Elements are:\n");
+    for (int i = 0; i < num; i++) {
+        printf("%d ", (*data)[i]);
     }
-
-    return 0 ;
+    printf("\n");
+    
+    return num;  // Return the number of elements
 }
