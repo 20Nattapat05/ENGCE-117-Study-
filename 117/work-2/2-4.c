@@ -1,51 +1,48 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
 
-// Return dynamic matrix, row/col via pointer
-int *GetMatrix(int *row, int *col);
+// Function prototype
+void explode(char str1[], char splitter, char str2[][100], int *count);
 
-int main()
-{
-    int *data, m, n;
+int main() {
+    char str1[100], splitter;
+    char str2[10][100]; // Array to store split words
+    int count = 0;
 
-    data = GetMatrix(&m, &n);
+    // Call explode function
+    explode(str1, splitter, str2, &count);
 
     return 0;
 }
 
-// ---------------------------
+// Function to split string
+void explode(char str1[], char splitter, char str2[][100], int *count) {
+    // Get input string
+    printf("Enter the string to be split: ");
+    fgets(str1, sizeof(str1), stdin);
+    str1[strcspn(str1, "\n")] = '\0';  // Remove newline character if exists
 
-int *GetMatrix(int *r, int *c)
-{
-    printf("Enter Rows: ");
-    scanf("%d", r);
+    // Get splitter character
+    printf("Enter the splitter character: ");
+    scanf("%c", &splitter);  // Read splitter
 
-    printf("Enter Cols: ");
-    scanf("%d", c);
+    // Convert the splitter to a string for strtok
+    char delimiter[2] = {splitter, '\0'};  // Create a string with the splitter
 
-    if (*r <= 0 || *c <= 0)
-        return NULL; // invalid size
+    char *token;
+    *count = 0;  // Reset word count
 
-    int size = (*r) * (*c);
-    int *mat = malloc(size * sizeof(int));
-    if (!mat)
-        return NULL; // malloc failed
-
-    printf("Input elements:\n");
-    for (int i = 0; i < size; i++) {
-        scanf("%d", &mat[i]); // fill data
+    // Split string by the splitter
+    token = strtok(str1, delimiter);
+    while (token != NULL) {
+        strcpy(str2[*count], token);  // Store the token
+        (*count)++;  // Increment word count
+        token = strtok(NULL, delimiter);  // Get next token
     }
 
-    // Print the matrix after input
-    printf("\n--- Result ---\n");
-    printf("Matrix Size: %d x %d\n", *r, *c);
-
-    for (int i = 0; i < size; i++) {
-        printf("%d ", mat[i]);
-        if ((i + 1) % (*c) == 0) {
-            printf("\n");  // Print a new line after each row
-        }
+    // Print the split words and count
+    for (int i = 0; i < *count; i++) {
+        printf("str2[%d] = \"%s\"\n", i, str2[i]);
     }
-
-    return mat; // return pointer to matrix
+    printf("count = %d\n", *count);
 }
