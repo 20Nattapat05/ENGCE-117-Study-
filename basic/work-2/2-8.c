@@ -2,40 +2,40 @@
 
 int main(void) {
     int N, i;
-    int studentId, score, totalClasses, absentClasses;
-    float attendancePercent;
+    int studentId[100], score[100], totalClasses[100], absentClasses[100];
+    float attendancePercent[100];
     int passCount = 0, failCount = 0;
 
     if (scanf("%d", &N) != 1) return 1;
 
     for (i = 0; i < N; i++) {
-        if (scanf("%d %d %d %d", &studentId, &score, &totalClasses, &absentClasses) != 4) {
+        if (scanf("%d %d %d %d", &studentId[i], &score[i], &totalClasses[i], &absentClasses[i]) != 4) {
             return 1;
         }
 
-        if (totalClasses <= 0) {
-            attendancePercent = 0.0f;  // กันหารศูนย์
-        } else {
-            attendancePercent = ((float)(totalClasses - absentClasses) / (float)totalClasses) * 100.0f;
-        }
+        if (totalClasses[i] <= 0)
+            attendancePercent[i] = 0.0f;
+        else
+            attendancePercent[i] = ((float)(totalClasses[i] - absentClasses[i]) / totalClasses[i]) * 100.0f;
+    }
 
-        int scoreOK = (score >= 50);
-        int attendOK = (attendancePercent >= 75.0f);
+    printf("\n--- Results ---\n");
+
+    for (i = 0; i < N; i++) {
+        int scoreOK = (score[i] >= 50);
+        int attendOK = (attendancePercent[i] >= 75.0f);
 
         if (scoreOK && attendOK) {
-            printf("Student %d: PASS\n", studentId);
+            printf("Student %d: PASS\n", studentId[i]);
             passCount++;
         } else {
-            printf("Student %d: FAIL - ", studentId);
-
-            if (!scoreOK && !attendOK) {
+            printf("Student %d: FAIL - ", studentId[i]);
+            if (!scoreOK && !attendOK)
                 printf("Both Score and Attendance\n");
-            } else if (!scoreOK) {
+            else if (!scoreOK)
                 printf("Score\n");
-            } else { // !attendOK
+            else
                 printf("Attendance\n");
-            }
-
             failCount++;
         }
     }
