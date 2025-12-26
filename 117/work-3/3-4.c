@@ -1,58 +1,48 @@
 #include <stdio.h>
 
-#define MAX_ROOMS 20
-#define STUDENTS_PER_ROOM 10
+#define ROOM_LIMIT 20 // max rooms
+#define PER_ROOM 10   // max students per room
 
-struct Student {
+typedef struct
+{
     char name[20];
     int age;
     char gender;
     float gpa;
-};
+} Student;
 
-/* ===== Prototype ตามโจทย์ ===== */
-void GetStudent(struct Student room[][STUDENTS_PER_ROOM], int *roomCount);
+// function prototype
+void readData(Student arr[][PER_ROOM], int *rooms);
 
-/* =============================== */
+int main(void)
+{
+    Student data[ROOM_LIMIT][PER_ROOM];
+    int roomTotal = 0;
 
-int main() {
-    struct Student classroom[MAX_ROOMS][STUDENTS_PER_ROOM];
-    int nRoom = 0;
-
-    /* เรียกใช้ฟังก์ชัน */
-    GetStudent(classroom, &nRoom);
+    readData(data, &roomTotal); // get input
 
     return 0;
 }
 
-/* ========= Function Definition ========= */
-void GetStudent(struct Student room[][STUDENTS_PER_ROOM], int *roomCount) {
-    int r, s;
+void readData(Student arr[][PER_ROOM], int *rooms)
+{
+    int i, j;
 
-    printf("Enter number of classrooms: ");
-    if (scanf("%d", roomCount) != 1) {
-        return; // กัน input พัง
-    }
+    printf("How many rooms: ");
+    scanf("%d", rooms);
 
-    if (*roomCount < 1 || *roomCount > MAX_ROOMS) {
-        printf("Invalid room count\n");
-        return;
-    }
+    for (i = 0; i < *rooms; i++)
+    {
+        printf("\n-- Room %d --\n", i + 1);
 
-    for (r = 0; r < *roomCount; r++) {
-        printf("\n=== Room %d ===\n", r + 1);
-
-        for (s = 0; s < STUDENTS_PER_ROOM; s++) {
-            printf("Student %d -> Name Age Gender GPA: ", s + 1);
-
-            /* จุดสำคัญ: มี space หน้า %c */
-            if (scanf("%19s %d %c %f",
-                      room[r][s].name,
-                      &room[r][s].age,
-                      &room[r][s].gender,
-                      &room[r][s].gpa) != 4) {
-                return;
-            }
+        for (j = 0; j < PER_ROOM; j++)
+        {
+            printf("Student %d (Name Age Gender GPA): ", j + 1);
+            scanf("%19s %d %c %f",
+                  arr[i][j].name,
+                  &arr[i][j].age,
+                  &arr[i][j].gender,
+                  &arr[i][j].gpa);
         }
     }
 }
